@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'rest-gradle'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.10
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.27'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.27'
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    // javax.activation
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    // for json
+    compile group: 'com.owlike', name: 'genson', version: '1.4'
+    // all local libraries from the "lib" folder (e.g. /lib/serviceModel.jar)
+    compile files(fileTree(dir: 'lib', includes: ['*.jar']))
+}
+jar {
+    archiveName = 'client.jar' // name of the generated .jar file
+    manifest { // class where the main method is
+        attributes 'Main-Class': 'sot.rest.client.client'
+    }
+    // add all dependencies to the executable .jar file
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

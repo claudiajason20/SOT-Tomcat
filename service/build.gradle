@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'rest-gradle'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.10
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // jersey
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.27'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.27'
+    compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-guava', version: '2.26-b03'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180725.0427'
+    // javax.activation
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    // for JSON serialisation
+    compile group: 'com.owlike', name: 'genson', version: '1.4'
+}
+war {
+    archiveName = 'rental.war'
+}
+

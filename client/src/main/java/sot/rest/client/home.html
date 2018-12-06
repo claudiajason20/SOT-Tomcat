@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title> Rent a House </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">RentaHouse</a>
+	    </div>
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="home.html"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+	      <li><a href="house.html"><span class="glyphicon glyphicon-th-list"></span> Available House</a></li>
+	      <li><a href="loginhtml"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+	    </ul>
+	  </div>
+	</nav>
+
+	<header class="bg-primary text-white">
+		<div class="container text-center">
+			<h1>Welcome to RentaHouse!</h1>
+			<p class="lead">Let's be Comfortable!</p>
+		</div>
+	</header>
+
+	<div class="col-sm-2">
+	</div>
+
+	<div class="col-sm-8">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Address</th>
+					<th>House Number</th>
+					<th>Price</th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody id="data">
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-sm-2">
+
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/rental/rest/room/all",
+                success: function (data) {
+                    $.each(data, function (index, row) {
+						var line = '<tr> <td>'+ (index+1) +'</td><td> ' + row.address +'</td><td>'+ row.number +'</td><td>'+ row.price +'</td></tr>';
+						$('#data').append(line);
+                    });
+                }
+            });
+        });
+	</script>
+</body>
+</html>
